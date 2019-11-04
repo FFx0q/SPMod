@@ -22,12 +22,12 @@
 namespace SPSqliteModule
 {
     class SqliteHandler;
-    class SqliteInterface : public ISqliteIterface
+    class SqliteInterface : public SPMod::ISqliteIterface
     {
         public:
-            virtual ISqliteHandler* connect(const char* filename) override;
-            virtual bool disconnect(ISqliteHandler* handle) override;
-            virtual bool isValid(ISqliteHandler* handle) override;
+            SPMod::ISqliteHandler* connect(const char* filename) override;
+            bool disconnect(SPMod::ISqliteHandler* handle) override;
+            bool isValid(SPMod::ISqliteHandler* handle) override;
 
         private:
             std::vector<std::unique_ptr<SqliteHandler>> m_handles;

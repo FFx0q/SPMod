@@ -23,7 +23,7 @@
 
 namespace SPSqliteModule
 {
-    class SqliteModuleInterface : public IModuleInterface
+    class SqliteModuleInterface : public SPMod::IModuleInterface
     {
         public:
             const char *getName() const override 
@@ -53,7 +53,7 @@ namespace SPSqliteModule
 
             void *getImplementation() const override
             {
-                return; 
+                return nullptr; 
             }
 
     };

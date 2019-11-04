@@ -22,9 +22,9 @@ namespace SPMod
     class ISqliteHandler
     {
         public:
-            virtual sqlite3* getHandle() = 0;
             virtual void query(const char* sql) = 0;
+            
         protected:
-            ~ISqliteHandler() = default;
+            virtual ~ISqliteHandler() = default;
     };
 }

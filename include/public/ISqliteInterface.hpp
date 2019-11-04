@@ -32,6 +32,6 @@ namespace SPMod
             virtual bool isValid(ISqliteHandler* handle) = 0;
 
         protected:
-            ~ISqliteIterface() = default;
+            virtual ~ISqliteIterface() = default;
     };
 }

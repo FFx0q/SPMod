@@ -23,17 +23,17 @@
 
 namespace SPSqliteModule
 {
-    class SqliteHandler : public ISqliteHandler
+    class SqliteHandler : public SPMod::ISqliteHandler
     {
         public:
-            SqliteHandler(sqlite3* handle);
+            explicit SqliteHandler(sqlite3* handle);
 
-            virtual sqlite3* getHandle() override
+            void query(const char* sql) override;
+
+            sqlite3* getHandle()
             {
                 return m_handle;
             };
-
-            virtual void query(const char* sql) override;
         private:
             sqlite3* m_handle;
 

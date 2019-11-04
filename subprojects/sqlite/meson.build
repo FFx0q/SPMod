@@ -4,8 +4,17 @@ project('sqlite', ['c', 'cpp'],
                   version : '0.2.0-dev')
 
 add_project_link_arguments(['-ldl', '-pthread'], language : [ 'c', 'cpp' ])
+rehldsIncludesDir = [
+    join_paths('..', '..', 'include', 'rehlds', 'rehlds', 'common'),
+    join_paths('..', '..', 'include', 'rehlds', 'rehlds', 'dlls'),
+    join_paths('..', '..', 'include', 'rehlds', 'rehlds', 'engine'),
+    join_paths('..', '..', 'include', 'rehlds', 'rehlds', 'game_shared'),
+    join_paths('..', '..', 'include', 'rehlds', 'rehlds', 'pm_shared'),
+    join_paths('..', '..', 'include', 'rehlds', 'rehlds', 'public'),
+    join_paths('..', '..', 'include', 'rehlds', 'rehlds', 'public', 'rehlds')
+]
 
-sourceFiles = files('ext.cpp', 'SqliteHandler.cpp', 'SqliteInterace.cpp', 'SqliteModuleInterface.cpp')
+sourceFiles = files('ext.cpp', 'SqliteHandler.cpp', 'SqliteInterface.cpp', 'SqliteModuleInterface.cpp')
 
 publicIncludesDir = [
     join_paths('..', '..', 'include', 'public')
@@ -17,6 +26,7 @@ sqliteIncludesDir = [
 
 includeDirs = include_directories(publicIncludesDir,
                                   sqliteIncludesDir,
+                                  rehldsIncludesDir,
                                   is_system : true) #build directory
 
 shared_library('sqlitemodule', sourceFiles, include_directories : includeDirs)

@@ -19,7 +19,13 @@
 
 #include "ext.hpp"
 
-SPSqliteModule::SqliteHandler::SqliteHandler(sqlite3* handle) : m_handle(handle) 
+namespace SPSqliteModule 
 {
+    SqliteHandler::SqliteHandler(sqlite3 *handle) : m_handle(handle) 
+    {}
 
+    void SqliteHandler::query(const char* sql)
+    {
+        (void)sql;
+    }
 }

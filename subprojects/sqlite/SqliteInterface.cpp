@@ -19,41 +19,40 @@
 
 #include "ext.hpp"
 
-ISqliteHandler* SPSqliteModule::SqliteInterface::connect(const char* filename)
+SPMod::ISqliteHandler* SPSqliteModule::SqliteInterface::connect(const char* filename)
 {
-    sqlite3* handle;
-    auto handle_ptr = std::make_unique<SqliteHandler>(&handle);
-
-    auto rc = sqlite3_open(filename, &handle);
-
-    if (rc != SQLITE_OK)
-    {
-        //error
-    }
-
     try {
-        m_handles.push_back(handle_ptr);
-        return handle_ptr.get();
+        sqlite3* handle;
+        int rc = sqlite3_open(filename, &handle);
+
+        if (rc != SQLITE_OK)
+        {
+            //error
+        }
+
+        auto &handle = m_handles.emplace_back(std::make_unique<SqliteHandler>(handle));
+        return handle.get();
     } catch(std::runtime_error &e) {
         return nullptr;
     }
 }
 
-bool SPSqliteModule::SqliteInterface::disconnect(ISqliteHandler* handle)
+bool SPSqliteModule::SqliteInterface::disconnect(SPMod::ISqliteHandler* handle)
 {
-    auto rc = sqlite3_close(handle->getHandle());
+    auto it = std::find_if(m_handles.begin(), m_handles.end(), 
+    [&](const std::unique_ptr<SqliteHandler> &p) {
+        return p.get() == handle;
+    });
+
+    int rc = sqlite3_close((*it)->getHandle());
 
     if (rc != SQLITE_OK)
         return false;
     return true;
 }
 
-bool SPSqliteModule::SqliteInterface::isValid(ISqliteHandler* handle)
+bool SPSqliteModule::SqliteInterface::isValid(SPMod::ISqliteHandler* handle)
 {
-    for (const auto& hndl : m_handles)
-    {
-        if (hndl.get() == handle)
-            return true;   
-    }
-    return false;
+    (void)handle;
+    return true;
 }

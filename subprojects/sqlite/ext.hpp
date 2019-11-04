@@ -17,13 +17,13 @@
 
 #pragma once
 
-#include <ISPGlobal.hpp>
-#include "ISqliteInterface.hpp"
-#include "ISqliteHandler.hpp"
-#include "SqliteModuleInterface.hpp"
-#include "SqliteInterface.hpp"
-
 #include "sqlite/sqlite3.h"
 #include <memory>
 
-using namespace SPMod;
+#include <ISPGlobal.hpp>
+#include <ISqliteInterface.hpp>
+#include <ISqliteHandler.hpp>
+
+#include "SqliteHandler.hpp"
+#include "SqliteModuleInterface.hpp"
+#include "SqliteInterface.hpp"
