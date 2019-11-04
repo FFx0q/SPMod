@@ -27,13 +27,11 @@ namespace SPSqliteModule
     {
         public:
             explicit SqliteHandler(sqlite3* handle);
-
             void query(const char* sql) override;
+            sqlite3* getHandle();
+            void setHandle(sqlite3* handle);
 
-            sqlite3* getHandle()
-            {
-                return m_handle;
-            };
+            
         private:
             sqlite3* m_handle;
 

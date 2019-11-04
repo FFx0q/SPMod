@@ -24,6 +24,16 @@ namespace SPSqliteModule
     SqliteHandler::SqliteHandler(sqlite3 *handle) : m_handle(handle) 
     {}
 
+    sqlite3* SqliteHandler::getHandle()
+    {
+        return m_handle;
+    }
+
+    void SqliteHandler::setHandle(sqlite3 *handle)
+    {
+        m_handle = handle;
+    }
+
     void SqliteHandler::query(const char* sql)
     {
         (void)sql;

@@ -28,6 +28,7 @@ namespace SPSqliteModule
             SPMod::ISqliteHandler* connect(const char* filename) override;
             bool disconnect(SPMod::ISqliteHandler* handle) override;
             bool isValid(SPMod::ISqliteHandler* handle) override;
+            const std::unique_ptr<SqliteHandler> &getFreeHandle();
 
         private:
             std::vector<std::unique_ptr<SqliteHandler>> m_handles;
