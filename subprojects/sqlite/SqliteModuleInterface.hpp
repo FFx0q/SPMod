@@ -26,6 +26,8 @@ namespace SPSqliteModule
     class SqliteModuleInterface : public SPMod::IModuleInterface
     {
         public:
+            SqliteModuleInterface();
+
             const char *getName() const override 
             {
                 return "Sqlite";
@@ -53,8 +55,9 @@ namespace SPSqliteModule
 
             void *getImplementation() const override
             {
-                return nullptr; 
+                return m_impl.get(); 
             }
-
+        private:
+            std::unique_ptr<SqliteInterface> m_impl;
     };
 }

@@ -3,7 +3,7 @@ project('sqlite', ['c', 'cpp'],
                   meson_version : '>=0.49.0',
                   version : '0.2.0-dev')
 
-add_project_link_arguments(['-ldl', '-pthread'], language : [ 'c', 'cpp' ])
+add_project_link_arguments(['-L.', '-ldl', '-pthread', '-lsqlite'], language : [ 'c', 'cpp' ])
 rehldsIncludesDir = [
     join_paths('..', '..', 'include', 'rehlds', 'rehlds', 'common'),
     join_paths('..', '..', 'include', 'rehlds', 'rehlds', 'dlls'),

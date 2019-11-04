@@ -25,5 +25,8 @@
 #include <ISqliteHandler.hpp>
 
 #include "SqliteHandler.hpp"
-#include "SqliteModuleInterface.hpp"
 #include "SqliteInterface.hpp"
+#include "SqliteModuleInterface.hpp"
+
+extern SPMod::ISPGlobal* gSPGlobal;
+extern SPMod::ILogger* gLogger;

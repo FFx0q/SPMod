@@ -32,7 +32,7 @@ namespace SPSqliteModule
         return dummy;
     }
 
-    SPMod::ISqliteHandler* SqliteInterface::connect(const char* filename)
+    SPMod::ISqliteHandler* SqliteInterface::connect(const char* filename, char* errormsg, std::size_t size)
     {
         try {
             sqlite3* handle;
@@ -40,7 +40,8 @@ namespace SPSqliteModule
 
             if (rc != SQLITE_OK)
             {
-                //error
+                gSPGlobal->getUtils()->strCopy(errormsg, size, sqlite3_errmsg(handle));
+                return nullptr;
             }
             
             if (const std::unique_ptr<SqliteHandler> &handle_ptr = getFreeHandle(); handle_ptr) {

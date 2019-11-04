@@ -25,7 +25,7 @@ namespace SPSqliteModule
     class SqliteInterface : public SPMod::ISqliteIterface
     {
         public:
-            SPMod::ISqliteHandler* connect(const char* filename) override;
+            SPMod::ISqliteHandler* connect(const char* filename, char* errormsg, std::size_t size) override;
             bool disconnect(SPMod::ISqliteHandler* handle) override;
             bool isValid(SPMod::ISqliteHandler* handle) override;
             const std::unique_ptr<SqliteHandler> &getFreeHandle();
