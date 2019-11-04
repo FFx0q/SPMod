@@ -23,11 +23,13 @@
 
 namespace SPMod
 {
+    class ISqliteHandler;
     class ISqliteIterface
     {
         public:
-            virtual bool open(const char* filename, char* errormsg, std::size_t size) = 0;
-            virtual bool close(sqlite3* handle) = 0;
+            virtual ISqliteHandler* connect(const char* filename) = 0;
+            virtual bool disconnect(ISqliteHandler* handle) = 0;
+            virtual bool isValid(ISqliteHandler* handle) = 0;
 
         protected:
             ~ISqliteIterface() = default;

@@ -17,19 +17,14 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "ext.hpp"
-
-namespace SPSqliteModule
+namespace SPMod
 {
-    class SqliteHandler;
-    class SqliteInterface : public ISqliteIterface
+    class ISqliteHandler
     {
         public:
-            virtual ISqliteHandler* connect(const char* filename) override;
-            virtual bool disconnect(ISqliteHandler* handle) override;
-            virtual bool isValid(ISqliteHandler* handle) override;
-
-        private:
-            std::vector<std::unique_ptr<SqliteHandler>> m_handles;
+            virtual sqlite3* getHandle() = 0;
+            virtual void query(const char* sql) = 0;
+        protected:
+            ~ISqliteHandler() = default;
     };
 }

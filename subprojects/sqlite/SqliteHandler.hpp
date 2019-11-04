@@ -17,19 +17,25 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 #include "ext.hpp"
 
 namespace SPSqliteModule
 {
-    class SqliteHandler;
-    class SqliteInterface : public ISqliteIterface
+    class SqliteHandler : public ISqliteHandler
     {
         public:
-            virtual ISqliteHandler* connect(const char* filename) override;
-            virtual bool disconnect(ISqliteHandler* handle) override;
-            virtual bool isValid(ISqliteHandler* handle) override;
+            SqliteHandler(sqlite3* handle);
 
+            virtual sqlite3* getHandle() override
+            {
+                return m_handle;
+            };
+
+            virtual void query(const char* sql) override;
         private:
-            std::vector<std::unique_ptr<SqliteHandler>> m_handles;
+            sqlite3* m_handle;
+
     };
 }

@@ -18,18 +18,3 @@
  */
 
 #include "ext.hpp"
-
-namespace SPSqliteModule
-{
-    class SqliteHandler;
-    class SqliteInterface : public ISqliteIterface
-    {
-        public:
-            virtual ISqliteHandler* connect(const char* filename) override;
-            virtual bool disconnect(ISqliteHandler* handle) override;
-            virtual bool isValid(ISqliteHandler* handle) override;
-
-        private:
-            std::vector<std::unique_ptr<SqliteHandler>> m_handles;
-    };
-}

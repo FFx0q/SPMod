@@ -5,7 +5,7 @@ project('sqlite', ['c', 'cpp'],
 
 add_project_link_arguments(['-ldl', '-pthread'], language : [ 'c', 'cpp' ])
 
-sourceFiles = files('ext.cpp')
+sourceFiles = files('ext.cpp', 'SqliteHandler.cpp', 'SqliteInterace.cpp', 'SqliteModuleInterface.cpp')
 
 publicIncludesDir = [
     join_paths('..', '..', 'include', 'public')

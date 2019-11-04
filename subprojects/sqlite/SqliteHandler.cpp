@@ -19,17 +19,7 @@
 
 #include "ext.hpp"
 
-namespace SPSqliteModule
+SPSqliteModule::SqliteHandler::SqliteHandler(sqlite3* handle) : m_handle(handle) 
 {
-    class SqliteHandler;
-    class SqliteInterface : public ISqliteIterface
-    {
-        public:
-            virtual ISqliteHandler* connect(const char* filename) override;
-            virtual bool disconnect(ISqliteHandler* handle) override;
-            virtual bool isValid(ISqliteHandler* handle) override;
 
-        private:
-            std::vector<std::unique_ptr<SqliteHandler>> m_handles;
-    };
 }

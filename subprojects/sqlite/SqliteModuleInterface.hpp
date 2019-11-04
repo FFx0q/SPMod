@@ -17,19 +17,44 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 #include "ext.hpp"
 
 namespace SPSqliteModule
 {
-    class SqliteHandler;
-    class SqliteInterface : public ISqliteIterface
+    class SqliteModuleInterface : public IModuleInterface
     {
         public:
-            virtual ISqliteHandler* connect(const char* filename) override;
-            virtual bool disconnect(ISqliteHandler* handle) override;
-            virtual bool isValid(ISqliteHandler* handle) override;
+            const char *getName() const override 
+            {
+                return "Sqlite";
+            }
 
-        private:
-            std::vector<std::unique_ptr<SqliteHandler>> m_handles;
+            std::uint32_t getVersion() const override
+            {
+                return 1U;
+            }
+
+            const char *getAuthor() const override
+            {
+                return "SPMod Development team";
+            }
+
+            const char *getUrl() const override
+            {
+                return "https://www.github.com/Amaroq7/SPMod";
+            }
+
+            const char *getExtName() const override
+            {
+                return "Sqlite Module";
+            }
+
+            void *getImplementation() const override
+            {
+                return; 
+            }
+
     };
 }
