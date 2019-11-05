@@ -19,18 +19,18 @@
 
 #include "ext.hpp"
 
-namespace SPSqliteModule
+namespace SPSQLiteModule
 {
-    class SqliteHandler;
-    class SqliteInterface : public SPMod::ISqliteIterface
+    class SQLiteHandler;
+    class SQLiteInterface : public SPMod::ISQLiteIterface
     {
         public:
-            SPMod::ISqliteHandler* connect(const char* filename, char* errormsg, std::size_t size) override;
-            bool disconnect(SPMod::ISqliteHandler* handle) override;
-            bool isValid(SPMod::ISqliteHandler* handle) override;
-            const std::unique_ptr<SqliteHandler> &getFreeHandle();
+            SPMod::ISQLiteHandler* connect(const char* filename, char* errormsg, std::size_t size) override;
+            bool disconnect(SPMod::ISQLiteHandler* handle) override;
+            bool isValid(SPMod::ISQLiteHandler* handle) override;
+            const std::unique_ptr<SQLiteHandler> &getFreeHandle();
 
         private:
-            std::vector<std::unique_ptr<SqliteHandler>> m_handles;
+            std::vector<std::unique_ptr<SQLiteHandler>> m_handles;
     };
 }

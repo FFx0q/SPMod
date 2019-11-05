@@ -21,12 +21,12 @@
 #include <memory>
 
 #include <ISPGlobal.hpp>
-#include <ISqliteInterface.hpp>
-#include <ISqliteHandler.hpp>
+#include <ISQLiteInterface.hpp>
+#include <ISQLiteHandler.hpp>
 
-#include "SqliteHandler.hpp"
-#include "SqliteInterface.hpp"
-#include "SqliteModuleInterface.hpp"
+#include "SQLiteHandler.hpp"
+#include "SQLiteInterface.hpp"
+#include "SQLiteModuleInterface.hpp"
 
 extern SPMod::ISPGlobal* gSPGlobal;
 extern SPMod::ILogger* gLogger;

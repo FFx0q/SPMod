@@ -17,21 +17,14 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
-#include <cstddef>
-
 namespace SPMod
 {
-    class ISqliteHandler;
-    class ISqliteIterface
+    class ISQLiteHandler
     {
         public:
-            virtual ISqliteHandler* connect(const char* filename, char* errormsg, std::size_t size) = 0;
-            virtual bool disconnect(ISqliteHandler* handle) = 0;
-            virtual bool isValid(ISqliteHandler* handle) = 0;
-
+            virtual void query(const char* sql) = 0;
+            
         protected:
-            virtual ~ISqliteIterface() = default;
+            virtual ~ISQLiteHandler() = default;
     };
 }

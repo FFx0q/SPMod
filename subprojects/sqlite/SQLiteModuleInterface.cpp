@@ -19,7 +19,7 @@
 
 #include "ext.hpp"
 
-namespace SPSqliteModule
+namespace SPSQLiteModule
 {
-    SqliteModuleInterface::SqliteModuleInterface() : m_impl(std::make_unique<SqliteInterface>()) {}
+    SQLiteModuleInterface::SQLiteModuleInterface() : m_impl(std::make_unique<SQLiteInterface>()) {}
 }

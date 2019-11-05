@@ -19,21 +19,19 @@
 
 #pragma once
 
-#include "ext.hpp"
+#include <cstddef>
 
-namespace SPSqliteModule
+namespace SPMod
 {
-    class SqliteHandler : public SPMod::ISqliteHandler
+    class ISQLiteHandler;
+    class ISQLiteIterface
     {
         public:
-            explicit SqliteHandler(sqlite3* handle);
-            void query(const char* sql) override;
-            sqlite3* getHandle();
-            void setHandle(sqlite3* handle);
+            virtual ISQLiteHandler* connect(const char* filename, char* errormsg, std::size_t size) = 0;
+            virtual bool disconnect(ISQLiteHandler* handle) = 0;
+            virtual bool isValid(ISQLiteHandler* handle) = 0;
 
-            
-        private:
-            sqlite3* m_handle;
-
+        protected:
+            virtual ~ISQLiteIterface() = default;
     };
 }

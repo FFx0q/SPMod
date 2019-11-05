@@ -21,12 +21,12 @@
 
 #include "ext.hpp"
 
-namespace SPSqliteModule
+namespace SPSQLiteModule
 {
-    class SqliteModuleInterface : public SPMod::IModuleInterface
+    class SQLiteModuleInterface : public SPMod::IModuleInterface
     {
         public:
-            SqliteModuleInterface();
+            SQLiteModuleInterface();
 
             const char *getName() const override 
             {
@@ -58,6 +58,6 @@ namespace SPSqliteModule
                 return m_impl.get(); 
             }
         private:
-            std::unique_ptr<SqliteInterface> m_impl;
+            std::unique_ptr<SQLiteInterface> m_impl;
     };
 }

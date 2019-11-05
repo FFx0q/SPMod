@@ -19,20 +19,20 @@
 
 #include "ext.hpp"
 
-namespace SPSqliteModule 
+namespace SPSQLiteModule 
 {
-    const std::unique_ptr <SqliteHandler> &SqliteInterface::getFreeHandle()
+    const std::unique_ptr <SQLiteHandler> &SQLiteInterface::getFreeHandle()
     {
         for(const auto& handle : m_handles)
         {
             if (handle->getHandle()) continue;
             return handle;
         }
-        static std::unique_ptr<SqliteHandler> dummy;
+        static std::unique_ptr<SQLiteHandler> dummy;
         return dummy;
     }
 
-    SPMod::ISqliteHandler* SqliteInterface::connect(const char* filename, char* errormsg, std::size_t size)
+    SPMod::ISQLiteHandler* SQLiteInterface::connect(const char* filename, char* errormsg, std::size_t size)
     {
         try {
             sqlite3* handle;
@@ -44,21 +44,21 @@ namespace SPSqliteModule
                 return nullptr;
             }
             
-            if (const std::unique_ptr<SqliteHandler> &handle_ptr = getFreeHandle(); handle_ptr) {
+            if (const std::unique_ptr<SQLiteHandler> &handle_ptr = getFreeHandle(); handle_ptr) {
                 handle_ptr->setHandle(handle);
                 return handle_ptr.get();
             } else {
-                return m_handles.emplace_back(std::make_unique<SqliteHandler>(handle)).get();
+                return m_handles.emplace_back(std::make_unique<SQLiteHandler>(handle)).get();
             }
         } catch(std::runtime_error &e) {
             return nullptr;
         }
     }
 
-    bool SqliteInterface::disconnect(SPMod::ISqliteHandler* handle)
+    bool SQLiteInterface::disconnect(SPMod::ISQLiteHandler* handle)
     {
         auto it = std::find_if(m_handles.begin(), m_handles.end(), 
-        [&](const std::unique_ptr<SqliteHandler> &p) {
+        [&](const std::unique_ptr<SQLiteHandler> &p) {
             return p.get() == handle;
         });
 
@@ -69,10 +69,10 @@ namespace SPSqliteModule
         return true;
     }
 
-    bool SqliteInterface::isValid(SPMod::ISqliteHandler* handle)
+    bool SQLiteInterface::isValid(SPMod::ISQLiteHandler* handle)
     {
         auto it = std::find_if(m_handles.begin(), m_handles.end(),
-        [&](const std::unique_ptr<SqliteHandler> &p) {
+        [&](const std::unique_ptr<SQLiteHandler> &p) {
             return p.get() == handle;
         });
 

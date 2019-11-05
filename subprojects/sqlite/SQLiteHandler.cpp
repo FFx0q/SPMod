@@ -17,14 +17,25 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace SPMod
+#include "ext.hpp"
+
+namespace SPSQLiteModule 
 {
-    class ISqliteHandler
+    SQLiteHandler::SQLiteHandler(sqlite3 *handle) : m_handle(handle) 
+    {}
+
+    sqlite3* SQLiteHandler::getHandle()
     {
-        public:
-            virtual void query(const char* sql) = 0;
-            
-        protected:
-            virtual ~ISqliteHandler() = default;
-    };
+        return m_handle;
+    }
+
+    void SQLiteHandler::setHandle(sqlite3 *handle)
+    {
+        m_handle = handle;
+    }
+
+    void SQLiteHandler::query(const char* sql)
+    {
+        (void)sql;
+    }
 }
