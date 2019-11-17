@@ -19,23 +19,25 @@
 
 #include "ext.hpp"
 
-namespace SPSQLiteModule 
+namespace SPSQLiteModule
 {
-    const std::unique_ptr <SQLiteHandler> &SQLiteInterface::getFreeHandle()
+    const std::unique_ptr<SQLiteHandler> &SQLiteInterface::getFreeHandle()
     {
-        for(const auto& handle : m_handles)
+        for (const auto &handle : m_handles)
         {
-            if (handle->getHandle()) continue;
+            if (handle->getHandle())
+                continue;
             return handle;
         }
         static std::unique_ptr<SQLiteHandler> dummy;
         return dummy;
     }
 
-    SPMod::ISQLiteHandler* SQLiteInterface::connect(const char* filename, char* errormsg, std::size_t size)
+    SPMod::ISQLiteHandler *SQLiteInterface::connect(const char *filename, char *errormsg, std::size_t size)
     {
-        try {
-            sqlite3* handle;
+        try
+        {
+            sqlite3 *handle;
             int rc = sqlite3_open(filename, &handle);
 
             if (rc != SQLITE_OK)
@@ -43,22 +45,26 @@ namespace SPSQLiteModule
                 gSPGlobal->getUtils()->strCopy(errormsg, size, sqlite3_errmsg(handle));
                 return nullptr;
             }
-            
-            if (const std::unique_ptr<SQLiteHandler> &handle_ptr = getFreeHandle(); handle_ptr) {
+
+            if (const std::unique_ptr<SQLiteHandler> &handle_ptr = getFreeHandle(); handle_ptr)
+            {
                 handle_ptr->setHandle(handle);
                 return handle_ptr.get();
-            } else {
+            }
+            else
+            {
                 return m_handles.emplace_back(std::make_unique<SQLiteHandler>(handle)).get();
             }
-        } catch(std::runtime_error &e) {
+        }
+        catch (std::runtime_error &e)
+        {
             return nullptr;
         }
     }
 
-    bool SQLiteInterface::disconnect(SPMod::ISQLiteHandler* handle)
+    bool SQLiteInterface::disconnect(SPMod::ISQLiteHandler *handle)
     {
-        auto it = std::find_if(m_handles.begin(), m_handles.end(), 
-        [&](const std::unique_ptr<SQLiteHandler> &p) {
+        auto it = std::find_if(m_handles.begin(), m_handles.end(), [&](const std::unique_ptr<SQLiteHandler> &p) {
             return p.get() == handle;
         });
 
@@ -69,16 +75,15 @@ namespace SPSQLiteModule
         return true;
     }
 
-    bool SQLiteInterface::isValid(SPMod::ISQLiteHandler* handle)
+    bool SQLiteInterface::isValid(SPMod::ISQLiteHandler *handle)
     {
-        auto it = std::find_if(m_handles.begin(), m_handles.end(),
-        [&](const std::unique_ptr<SQLiteHandler> &p) {
+        auto it = std::find_if(m_handles.begin(), m_handles.end(), [&](const std::unique_ptr<SQLiteHandler> &p) {
             return p.get() == handle;
         });
 
-        if (!(*it)->getHandle()) 
+        if (!(*it)->getHandle())
             return false;
-    
+
         return true;
     }
-}
+} // namespace SPSQLiteModule

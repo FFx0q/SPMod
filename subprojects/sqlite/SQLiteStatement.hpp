@@ -23,42 +23,27 @@
 
 namespace SPSQLiteModule
 {
-    class SQLiteModuleInterface : public SPMod::IModuleInterface
+    class SQLiteStatement : public SPMod::ISQLiteStatement
     {
-    public:
-        SQLiteModuleInterface();
+        SQLiteStatement(SQLiteHandler *handle, const char *sql);
+        int checkStep();
 
-        const char *getName() const override
-        {
-            return "Sqlite";
-        }
+        // ISQLiteStatement
+        bool hasResult(char *errormsg, std::size_t size) override;
+        ISQLiteColumn *getResult() override;
 
-        std::uint32_t getVersion() const override
-        {
-            return 1U;
-        }
-
-        const char *getAuthor() const override
-        {
-            return "SPMod Development team";
-        }
-
-        const char *getUrl() const override
-        {
-            return "https://www.github.com/Amaroq7/SPMod";
-        }
-
-        const char *getExtName() const override
-        {
-            return "Sqlite Module";
-        }
-
-        void *getImplementation() const override
-        {
-            return m_impl.get();
-        }
+        void bind(int index, const int value) override;
+        void bind(int index, const float value) override;
+        void bind(int index, const char *value) override;
+        void bind(int index, const void *value, std::size_t size) override;
 
     private:
-        std::unique_ptr<SQLiteInterface> m_impl;
+        std::vector<std::unique_ptr<SQLiteColumn>> m_columns;
+        int m_currentIndex;
+        sqlite3_stmt *m_stmt;
+        const char *m_sql;
+        SQLiteHandler *m_handle;
+        bool m_hasRow;
+        bool m_hasDone;
     };
 } // namespace SPSQLiteModule

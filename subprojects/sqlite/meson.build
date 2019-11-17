@@ -14,7 +14,7 @@ rehldsIncludesDir = [
     join_paths('..', '..', 'include', 'rehlds', 'rehlds', 'public', 'rehlds')
 ]
 
-sourceFiles = files('ext.cpp', 'SQLiteHandler.cpp', 'SQLiteInterface.cpp', 'SQLiteModuleInterface.cpp')
+sourceFiles = files('ext.cpp', 'SQLiteHandler.cpp', 'SQLiteInterface.cpp', 'SQLiteModuleInterface.cpp', 'SQLiteStatement.cpp', 'SQLiteColumn.cpp)
 
 publicIncludesDir = [
     join_paths('..', '..', 'include', 'public')

@@ -24,13 +24,15 @@ namespace SPSQLiteModule
     class SQLiteHandler;
     class SQLiteInterface : public SPMod::ISQLiteIterface
     {
-        public:
-            SPMod::ISQLiteHandler* connect(const char* filename, char* errormsg, std::size_t size) override;
-            bool disconnect(SPMod::ISQLiteHandler* handle) override;
-            bool isValid(SPMod::ISQLiteHandler* handle) override;
-            const std::unique_ptr<SQLiteHandler> &getFreeHandle();
+    public:
+        const std::unique_ptr<SQLiteHandler> &getFreeHandle();
 
-        private:
-            std::vector<std::unique_ptr<SQLiteHandler>> m_handles;
+        // ISQLiteInterface
+        SPMod::ISQLiteHandler *connect(const char *filename, char *errormsg, std::size_t size) override;
+        bool disconnect(SPMod::ISQLiteHandler *handle) override;
+        bool isValid(SPMod::ISQLiteHandler *handle) override;
+
+    private:
+        std::vector<std::unique_ptr<SQLiteHandler>> m_handles;
     };
-}
+} // namespace SPSQLiteModule

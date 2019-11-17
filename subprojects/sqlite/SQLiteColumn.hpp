@@ -23,42 +23,20 @@
 
 namespace SPSQLiteModule
 {
-    class SQLiteModuleInterface : public SPMod::IModuleInterface
+    class SQLiteColumn : public SPMod::ISQLiteColumn
     {
     public:
-        SQLiteModuleInterface();
+        SQLiteColumn(sqlite3_stmt *stmt, int index);
 
-        const char *getName() const override
-        {
-            return "Sqlite";
-        }
-
-        std::uint32_t getVersion() const override
-        {
-            return 1U;
-        }
-
-        const char *getAuthor() const override
-        {
-            return "SPMod Development team";
-        }
-
-        const char *getUrl() const override
-        {
-            return "https://www.github.com/Amaroq7/SPMod";
-        }
-
-        const char *getExtName() const override
-        {
-            return "Sqlite Module";
-        }
-
-        void *getImplementation() const override
-        {
-            return m_impl.get();
-        }
+        // ISQLiteColumn
+        const char *getTableName() override;
+        int getInt() override;
+        float getFloat() override;
+        const char *getText() override;
+        const void *getBlob() override;
 
     private:
-        std::unique_ptr<SQLiteInterface> m_impl;
+        int m_index;
+        sqlite3_stmt *m_stmt;
     };
 } // namespace SPSQLiteModule

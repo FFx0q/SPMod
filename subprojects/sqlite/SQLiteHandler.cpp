@@ -19,12 +19,11 @@
 
 #include "ext.hpp"
 
-namespace SPSQLiteModule 
+namespace SPSQLiteModule
 {
-    SQLiteHandler::SQLiteHandler(sqlite3 *handle) : m_handle(handle) 
-    {}
+    SQLiteHandler::SQLiteHandler(sqlite3 *handle) : m_handle(handle) {}
 
-    sqlite3* SQLiteHandler::getHandle()
+    sqlite3 *SQLiteHandler::getHandle()
     {
         return m_handle;
     }
@@ -34,8 +33,17 @@ namespace SPSQLiteModule
         m_handle = handle;
     }
 
-    void SQLiteHandler::query(const char* sql)
+    SPMod::ISQLiteStatement *SQLiteHandler::query(const char *sql)
     {
-        (void)sql;
+        try
+        {
+            sqlite3_stmt *stmt;
+
+            return m_stmts.emplace_back(std::make_unique<SQLiteHandler>(stmt)).get();
+        }
+        catch (std::runtime_error &e)
+        {
+            return nullptr;
+        }
     }
-}
+} // namespace SPSQLiteModule

@@ -19,43 +19,47 @@
 
 #pragma once
 
-#include <cstddef>
-
 namespace SPMod
 {
-    class ISQLiteHandler;
-    class ISQLiteIterface
+    class ISQLiteColumn
     {
     public:
         /**
-         * @brief Opens a database connection.
+         * @brief Returns table name.
          *
-         * @param filename Filename
-         * @param errormsg String where error string will be stored.
-         * @param size
-         *
-         * @return SQLiteHandler pointer.
+         * @return const char*.
          */
-        virtual ISQLiteHandler *connect(const char *filename, char *errormsg, std::size_t size) = 0;
-        /**
-         * @brief Closes a database connection.
-         *
-         * @param handle Connection handle.
-         *
-         * @return True if success, false otherwise.
-         */
-        virtual bool disconnect(ISQLiteHandler *handle) = 0;
+        virtual const char *getTableName() = 0;
 
         /**
-         * @brief  Check if handle is valid.
+         * @brief Get the Int object
          *
-         * @param handle Connection handle.
-         *
-         * @return True if is valid, false otherwise.
+         * @return int
          */
-        virtual bool isValid(ISQLiteHandler *handle) = 0;
+        virtual int getInt() = 0;
+
+        /**
+         * @brief Get the Float object
+         *
+         * @return float
+         */
+        virtual float getFloat() = 0;
+
+        /**
+         * @brief Get the Text object
+         *
+         * @return const char*
+         */
+        virtual const char *getText() = 0;
+
+        /**
+         * @brief Get the Blob object
+         *
+         * @return const void*
+         */
+        virtual const void *getBlob() = 0;
 
     protected:
-        virtual ~ISQLiteIterface() = default;
+        virtual ISQLiteColumn() = default;
     };
 } // namespace SPMod

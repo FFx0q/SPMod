@@ -22,4 +22,4 @@
 namespace SPSQLiteModule
 {
     SQLiteModuleInterface::SQLiteModuleInterface() : m_impl(std::make_unique<SQLiteInterface>()) {}
-}
+} // namespace SPSQLiteModule

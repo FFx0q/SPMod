@@ -19,12 +19,20 @@
 
 namespace SPMod
 {
+    class ISQLiteStatement;
     class ISQLiteHandler
     {
-        public:
-            virtual void query(const char* sql) = 0;
-            
-        protected:
-            virtual ~ISQLiteHandler() = default;
+    public:
+        /**
+         * @brief Prepares and executes a query.
+         *
+         * @param sql The query string
+         *
+         * @return SQLiteStatement pointer
+         */
+        virtual ISQLiteStatement *query(const char *sql) = 0;
+
+    protected:
+        virtual ~ISQLiteHandler() = default;
     };
-}
+} // namespace SPMod

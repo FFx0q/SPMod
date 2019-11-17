@@ -17,24 +17,35 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
 #include "ext.hpp"
 
 namespace SPSQLiteModule
 {
-    class SQLiteHandler : public SPMod::ISQLiteHandler
+    SQLiteColumn::SQLiteColumn(sqlite3_stmt *stmt, int index) : m_stmt(stmt), m_index(index) {}
+
+    const char *SQLiteColumn::getName()
     {
-    public:
-        explicit SQLiteHandler(sqlite3 *handle);
-        void setHandle(sqlite3 *handle);
-        sqlite3 *getHandle();
+        return sqlite3_column_name(m_stmt, m_index);
+    }
 
-        // ISQLiteHandler
-        SPMod::ISQLiteStatement *query(const char *sql) override;
+    int SQLiteColumn::getInt()
+    {
+        return sqlite3_column_int(m_stmt, m_index);
+    }
 
-    private:
-        sqlite3 *m_handle;
-        std::vector<std::unique_ptr<SQLiteStatement>> m_stmts;
-    };
+    float SQLiteColumn::getFloat()
+    {
+        return sqlite3_column_double(m_stmt, m_index);
+    }
+
+    const char *SQLiteColumn::getText()
+    {
+        const char *text = reinterpret_cast<const char *>(sqlite3_column_text(m_stmt, m_index));
+        return text;
+    }
+
+    const void *SQLiteColumn::getBlob()
+    {
+        return sqlite3_column_blob(m_stmt, m_index);
+    }
 } // namespace SPSQLiteModule

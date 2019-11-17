@@ -20,13 +20,19 @@
 #include "sqlite/sqlite3.h"
 #include <memory>
 
+// SPMod
 #include <ISPGlobal.hpp>
 #include <ISQLiteInterface.hpp>
 #include <ISQLiteHandler.hpp>
+#include <ISQLiteStatement.hpp>
+#include <ISQLiteColumn.hpp>
 
+// SQLiteModule
+#include "SQLiteColumn.hpp"
+#include "SQLiteStatement.hpp"
 #include "SQLiteHandler.hpp"
 #include "SQLiteInterface.hpp"
 #include "SQLiteModuleInterface.hpp"
 
-extern SPMod::ISPGlobal* gSPGlobal;
-extern SPMod::ILogger* gLogger;
+extern SPMod::ISPGlobal *gSPGlobal;
+extern SPMod::ILogger *gLogger;

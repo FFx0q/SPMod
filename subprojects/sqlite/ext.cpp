@@ -44,7 +44,6 @@ SPMOD_API bool SPMod_Init()
     gLogger->setLogLevel(SPMod::LogLevel::Debug);
 #endif
 
-
     gLogger->logToConsole(SPMod::LogLevel::Info, "Version: %s", SQLITE_VERSION);
 
     return true;
