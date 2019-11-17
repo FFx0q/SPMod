@@ -29,6 +29,20 @@ namespace SPSQLiteModule
         }
     }
 
+    int affectedRows()
+    {
+        const int ret = checkStep();
+
+        if (ret != SQLITE_DONE)
+        {
+            if (SQLITE_ROW == ret)
+            {
+                // exec() not except result.
+            }
+        }
+        return sqlite3_changes(m_stmt);
+    }
+
     bool SQLiteStatement::hasResult(char *errormsg, std::size_t size)
     {
         const int ret = checkStep();

@@ -32,6 +32,7 @@ namespace SPSQLiteModule
 
         // ISQLiteHandler
         SPMod::ISQLiteStatement *query(const char *sql) override;
+        SPMod::ISQLiteStatement *exec(const char *sql) override;
 
     private:
         sqlite3 *m_handle;

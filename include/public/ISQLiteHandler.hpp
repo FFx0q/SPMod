@@ -32,6 +32,14 @@ namespace SPMod
          */
         virtual ISQLiteStatement *query(const char *sql) = 0;
 
+        /**
+         * @brief
+         *
+         * @param sql
+         * @return ISQLiteStatement*
+         */
+        virtual ISQLiteStatement *SQLiteHandler::exec(const char *sql) = 0;
+
     protected:
         virtual ~ISQLiteHandler() = default;
     };

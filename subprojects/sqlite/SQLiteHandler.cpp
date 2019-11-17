@@ -33,13 +33,27 @@ namespace SPSQLiteModule
         m_handle = handle;
     }
 
+    SPMod::ISQLiteStatement *SQLiteHandler::exec(const char *sql)
+    {
+        try
+        {
+            sqlite3_stmt *stmt;
+
+            return m_stmts.emplace_back(std::make_unique<SQLiteStatement>(stmt)).get();
+        }
+        catch (std::runtime_error &e)
+        {
+            return nullptr;
+        }
+    }
+
     SPMod::ISQLiteStatement *SQLiteHandler::query(const char *sql)
     {
         try
         {
             sqlite3_stmt *stmt;
 
-            return m_stmts.emplace_back(std::make_unique<SQLiteHandler>(stmt)).get();
+            return m_stmts.emplace_back(std::make_unique<SQLiteStatement>(stmt)).get();
         }
         catch (std::runtime_error &e)
         {

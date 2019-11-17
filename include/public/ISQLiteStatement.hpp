@@ -27,6 +27,13 @@ namespace SPMod
     {
     public:
         /**
+         * @brief 
+         * 
+         * @return int 
+         */
+        virtual int affectedRows() = 0;
+
+        /**
          * @brief Check if query has result.
          *
          * @param errormsg String where error string will be stored.
