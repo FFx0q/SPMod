@@ -33,7 +33,7 @@ namespace SPSQLiteModule
         m_handle = handle;
     }
 
-    SPMod::ISQLiteStatement *SQLiteHandler::exec(const char *sql)
+    SPMod::ISQLiteStatement *SQLiteHandler::execute(const char *sql)
     {
         try
         {
@@ -59,5 +59,15 @@ namespace SPSQLiteModule
         {
             return nullptr;
         }
+    }
+
+    int SQLiteHandler::errorCode(sqlite3 *handle)
+    {
+        return sqlite3_errcode(handle);
+    }
+
+    const char *errorInfo(sqlite3 *handle)
+    {
+        return sqlite3_errmsg(handle);
     }
 } // namespace SPSQLiteModule

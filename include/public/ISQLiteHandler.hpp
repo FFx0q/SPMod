@@ -38,7 +38,23 @@ namespace SPMod
          * @param sql
          * @return ISQLiteStatement*
          */
-        virtual ISQLiteStatement *SQLiteHandler::exec(const char *sql) = 0;
+        virtual ISQLiteStatement *execute(const char *sql) = 0;
+
+        /**
+         * @brief Returns error code.
+         * 
+         * @param handle 
+         * @return int 
+         */
+        virtual int errorCode(sqlite3* handle) = 0;
+
+        /**
+         * @brief Returns error message.
+         * 
+         * @param handle 
+         * @return const char* 
+         */
+        virtual const char* errorInfo(sqlite3* handle) = 0;
 
     protected:
         virtual ~ISQLiteHandler() = default;

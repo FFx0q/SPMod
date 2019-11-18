@@ -29,9 +29,10 @@ namespace SPSQLiteModule
         int checkStep();
 
         // ISQLiteStatement
-        int affectedRows() override;
+        int rowCount() override;
         bool hasResult(char *errormsg, std::size_t size) override;
-        ISQLiteColumn *getResult() override;
+        SPMod::ISQLiteColumn *fetch() override;
+        int prepare(const char* sql) override;
 
         void bind(int index, const int value) override;
         void bind(int index, const float value) override;

@@ -21,17 +21,25 @@
 
 namespace SPMod
 {
-    class ISQliteColumn;
+    class ISQLiteColumn;
 
     class ISQLiteStatement
     {
     public:
         /**
-         * @brief 
+         * @brief  Returns the number of rows affected.
          * 
          * @return int 
          */
-        virtual int affectedRows() = 0;
+        virtual int rowCount() = 0;
+
+        /**
+         * @brief 
+         * 
+         * @param sql 
+         * @return int 
+         */
+        virtual int prepare(const char *sql) = 0;
 
         /**
          * @brief Check if query has result.
@@ -44,11 +52,11 @@ namespace SPMod
         virtual bool hasResult(char *errormsg, std::size_t size) = 0;
 
         /**
-         * @brief Retrieves result.
+         * @brief Fetches the next row from query.
          *
          * @return SQLiteColumn Pointer.
          */
-        ISQliteColumn *getResult() = 0;
+        virtual ISQLiteColumn *fetch() = 0;
 
         /**
          * @brief Binds a value to a specify parametr.

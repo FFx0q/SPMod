@@ -29,7 +29,17 @@ namespace SPSQLiteModule
         }
     }
 
-    int affectedRows()
+    int SQLiteStatement::prepare(const char *sql)
+    {
+        const int ret = sqlite3_prepare_v2(m_handle->getHandle(), sql, sizeof(sql), &m_stmt, NULL);
+        if (ret != SQLITE_OK)
+        {
+            return m_handle->errorCode;
+        }
+        return SQLITE_OK;
+    }
+
+    int SQLiteStatement::rowCount()
     {
         const int ret = checkStep();
 
@@ -40,7 +50,7 @@ namespace SPSQLiteModule
                 // exec() not except result.
             }
         }
-        return sqlite3_changes(m_stmt);
+        return sqlite3_changes(m_handle->getHandle());
     }
 
     bool SQLiteStatement::hasResult(char *errormsg, std::size_t size)
@@ -49,23 +59,23 @@ namespace SPSQLiteModule
 
         if ((SQLITE_ROW != ret) && (SQLITE_DONE != ret))
         {
-            gSPGlobal->getUtils()->strCopy(errormsg, size, sqlite3_errmsg(m_handle));
+            //m_handle->errorCode;
         }
 
         return m_hasRow;
     }
 
-    ISQLiteColumn *SQLiteStatement::getResult()
+    SPMod::ISQLiteColumn *SQLiteStatement::fetch()
     {
         try
         {
             if (m_hasDone)
             {
                 m_currentIndex = 0;
-                return NULL;
+                return nullptr;
             }
 
-            return m_columns.emplace_back(std::make_unique<SQLiteColumn>(m_stmt, m_currentIndex)).get()
+            return m_columns.emplace_back(std::make_unique<SQLiteColumn>(m_stmt, m_currentIndex)).get();
         }
         catch (std::runtime_error &e)
         {
@@ -95,28 +105,26 @@ namespace SPSQLiteModule
 
     int SQLiteStatement::checkStep()
     {
-        if (m_hasDone == false)
-        {
-            const int ret = sqlite3_step(m_stmt);
-            if (SQLITE_ROW == ret)
-            {
-                m_hasRow = true;
-            }
-            else if (SQLITE_DONE == ret)
-            {
-                m_hasRow = false;
-                m_hasDone = true;
-            }
-            else
-            {
-                m_hasRow = false;
-                m_hasDone = false;
-            }
-            return ret;
-        }
-        else
+        if (m_hasDone)
         {
             return SQLITE_MISUSE;
         }
+        
+        const int ret = sqlite3_step(m_stmt);
+        if (SQLITE_ROW == ret)
+        {
+            m_hasRow = true;
+        }
+        else if (SQLITE_DONE == ret)
+        {
+            m_hasRow = false;
+            m_hasDone = true;
+        }
+        else
+        {
+            m_hasRow = false;
+            m_hasDone = false;
+        }
+        return ret;
     }
 } // namespace SPSQLiteModule
