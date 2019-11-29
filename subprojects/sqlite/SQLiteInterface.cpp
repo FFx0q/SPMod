@@ -38,7 +38,7 @@ namespace SPSQLiteModule
         try
         {
             sqlite3 *handle;
-            int rc = sqlite3_open(filename, &handle);
+            int rc = sqlite3_open_v2(filename, &handle, SQLITE_OPEN_NOMUTEX | SQLITE_OPEN_READWRITE, NULL);
 
             if (rc != SQLITE_OK)
             {
